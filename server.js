@@ -5,6 +5,8 @@ var routes = require('./app/routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
+var url = require('url');
+var dateConverter = require("./dateConverter");
 
 var app = express();
 require('dotenv').load();
@@ -30,4 +32,8 @@ routes(app, passport);
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
 	console.log('Node.js listening on port ' + port + '...');
+});
+
+app.get("/:date",function(req,res){
+	res.send(dateConverter.isDate(req.params.date));
 });
